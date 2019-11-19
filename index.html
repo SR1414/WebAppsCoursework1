@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <title>Skool App</title>
+    <header>Skool App</header>
+</head>
+
+<body>
+    <div id="app">
+        <div class="grid-container" v-if="seen">
+            <div class="item1">
+                Search: <input type="search" name="searchbox">
+                <input type="submit">
+
+            </div>
+            <div class="item2">Menu</div>
+            <div class="item3">Main</div>
+        </div>
+        <button @click="seen=!seen">Show</button>
+    </div>
+    <div id="login">
+        <div v-if="seen"> 
+            
+        </div>
+    </div>
+</body>
+<script>
+var app = new Vue({
+    el:"#app",
+    data: {
+      seen: false
+    }
+  })
+</script>
