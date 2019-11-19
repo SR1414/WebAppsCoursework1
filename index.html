@@ -9,6 +9,8 @@
 </head>
 
 <body>
+
+<!---------------------------------------------------------LESSONS PAGE---------------------------------------->    
     <div id="app">
         <div class="grid-container" v-if="seen">
             <div class="item1">
@@ -19,19 +21,68 @@
             <div class="item2">Menu</div>
             <div class="item3">Main</div>
         </div>
-        <button @click="seen=!seen">Show</button>
+        <!--<button @click="seen=!seen">Show</button>-->
+<!---------------------------------------------------------LOGIN PAGE---------------------------------------->          
     </div>
     <div id="login">
-        <div v-if="seen"> 
-            
+        <div class="logincontainer" v-if="seen">
+            <label for="userEmail"><b>Email</b></label>
+            <input type="text" placeholder="Enter Email" name="userEmail" required>
+
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="password" required>
+
+            <button type="submit">Login</button>
+        </div>
+    </div>
+<!---------------------------------------------------------REGISTRATION PAGE---------------------------------------->  
+<div id="registration">
+        <div class="regcontainer" v-if="seen">
+            <label for="userEmail"><b>Email:</b></label>
+            <input type="text" placeholder="Enter Email" name="userEmail" required>
+            <br>
+            <br>
+            <label for="firstName"><b>First Name:</b></label>
+            <input type="text" placeholder="Enter First Name" name="firstName" required>
+            <br>
+            <br>
+            <label for="lastName"><b>Last Name:</b></label>
+            <input type="text" placeholder="Enter Last Name" name="lastName" required>
+            <br>
+            <br>
+            <label for="userType"><b>User Type:</b></label><br>
+            <input type="radio" name="uType" value="parent/student"> parent/student<br>
+            <input type="radio" name="uType" value="serviceprovider"> serviceprovider
+            <br>
+            <br>
+            <label for="dob"><b>Date of Birth:</b></label>
+            <input type="date" name="dob" required>
+            <br>
+            <br>
+            <label for="password"><b>Password:</b></label>
+            <input type="password" placeholder="Enter Password" name="password" required>
+            <br>
+            <br>
         </div>
     </div>
 </body>
 <script>
-var app = new Vue({
-    el:"#app",
-    data: {
-      seen: false
-    }
-  })
+    var lessons = new Vue({
+        el: "#app",
+        data: {
+            seen: false
+        }
+    })
+    var login = new Vue({
+        el: "#login",
+        data: {
+            seen: false
+        }
+    })
+    var registration = new Vue({
+        el: "#registration",
+        data: {
+            seen: true
+        }
+    })
 </script>
