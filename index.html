@@ -1,16 +1,27 @@
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet" type="text/css" href="style.css">
 
 <head>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
     <title>Skool App</title>
     <header>Skool App</header>
+    <ul>
+        <li><button onclick="GoToLessons()">Lessons</button></li>
+        <li><button onclick="GoToLogin()">Login</button></li>
+        <li><button onclick="GoToRegistration()">Registration</button></li>
+    </ul>
+    
+
 </head>
 
 <body>
-
-<!---------------------------------------------------------LESSONS PAGE---------------------------------------->    
+  <ul id="example-1">
+    <li v-for="item in items">
+      {{ item.name }}
+    </li>
+  </ul>
+    <!---------------------------------------------------------LESSONS PAGE---------------------------------------->
     <div id="app">
         <div class="grid-container" v-if="seen">
             <div class="item1">
@@ -22,7 +33,7 @@
             <div class="item3">Main</div>
         </div>
         <!--<button @click="seen=!seen">Show</button>-->
-<!---------------------------------------------------------LOGIN PAGE---------------------------------------->          
+        <!---------------------------------------------------------LOGIN PAGE---------------------------------------->
     </div>
     <div id="login">
         <div class="logincontainer" v-if="seen">
@@ -35,54 +46,52 @@
             <button type="submit">Login</button>
         </div>
     </div>
-<!---------------------------------------------------------REGISTRATION PAGE---------------------------------------->  
-<div id="registration">
-        <div class="regcontainer" v-if="seen">
-            <label for="userEmail"><b>Email:</b></label>
-            <input type="text" placeholder="Enter Email" name="userEmail" required>
-            <br>
-            <br>
-            <label for="firstName"><b>First Name:</b></label>
-            <input type="text" placeholder="Enter First Name" name="firstName" required>
-            <br>
-            <br>
-            <label for="lastName"><b>Last Name:</b></label>
-            <input type="text" placeholder="Enter Last Name" name="lastName" required>
-            <br>
-            <br>
-            <label for="userType"><b>User Type:</b></label><br>
-            <input type="radio" name="uType" value="parent/student"> parent/student<br>
-            <input type="radio" name="uType" value="serviceprovider"> serviceprovider
-            <br>
-            <br>
-            <label for="dob"><b>Date of Birth:</b></label>
-            <input type="date" name="dob" required>
-            <br>
-            <br>
-            <label for="password"><b>Password:</b></label>
-            <input type="password" placeholder="Enter Password" name="password" required>
-            <br>
-            <br>
-        </div>
+    <!---------------------------------------------------------REGISTRATION PAGE---------------------------------------->
+    
+    <div id="registration"></div>
+    <div id="reg">
+
+      <label for="email"><b>Email:</b></label>
+      <input v-model="email" required>
+      <br>
+      <label for="firstname"><b>First Name:</b></label>
+      <input v-model="firstname" required>
+      <br>
+      <label for="lastname"><b>Last Name:</b></label>
+      <input v-model="lastname" required>
+      <br>
+      <button @click="persist">Save</button>
+    </div>
+
+            <!--<form id="signup-form" @submit.prevent="processForm">
+                
+                  <label class="label">Name</label>
+                  <input 
+                    type="text"
+                    class="input" 
+                    name="name"
+                    v-model="name">
+        
+                
+                  <label class="label">Email</label>
+                  <input 
+                    type="email" 
+                    class="input" 
+                    name="email" 
+                    v-model="email"
+                    @blur="validateEmail">
+        
+                  <p class="help is-danger" v-if="errors.email">
+                    Please enter a valid email.
+                  </p>
+        
+                
+                  <button type="submit" class="button is-danger" @click="mounted">
+                    Submit            
+                  </button>
+              </form>-->
     </div>
 </body>
-<script>
-    var lessons = new Vue({
-        el: "#app",
-        data: {
-            seen: false
-        }
-    })
-    var login = new Vue({
-        el: "#login",
-        data: {
-            seen: false
-        }
-    })
-    var registration = new Vue({
-        el: "#registration",
-        data: {
-            seen: true
-        }
-    })
-</script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="app.js"></script>
