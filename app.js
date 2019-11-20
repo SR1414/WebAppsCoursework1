@@ -48,16 +48,16 @@ var atest = new Vue({
       email: false
     },
     mounted() {
-      if(localStorage.name) this.name = localStorage.name;
-      if(localStorage.email) this.email = localStorage.email;
+      if (localStorage.name) this.name = localStorage.name;
+      if (localStorage.email) this.email = localStorage.email;
     },
   },
   methods: {
-    processForm: function() {
+    processForm: function () {
       console.log({ name: this.name, email: this.email });
       alert('Processing');
     },
-    validateEmail: function() {
+    validateEmail: function () {
       const isValid = window.isValidEmail(this.email);
       this.errors.email = !isValid;
     }
@@ -73,23 +73,146 @@ function isValidEmail(email) {
   return re.test(email);
 }
 
+
 var reg = new Vue({
-  el:'#reg',
+  el: '#reg',
+  data: {
+    signemail: '',
+    signfirstname: '',
+    signlastname: '',
+    signusertype: '',
+    signpassword: ''
+
+  },
+  methods: {
+    signup: function register() {
+      var userlist = [];
+      var email = this.signemail;
+      var firstname = this.signfirstname;
+      var lastname = this.signlastname;
+      var usertype = this.signusertype;
+      var password = this.signpassword;
+
+      if (localStorage.getItem("MyUser") === null) {
+        userlist.push({
+          Email: email,
+          Firstname: firstname,
+          Lastname: lastname,
+          Usertype: usertype,
+          Password: password
+        });
+        var myuserlistserialized = JSON.stringify(userlist);
+        localStorage.setItem("MyUser", myuserlistserialized);
+        console.log("ADDED IF DOESNT EXIST");
+        alert("Account Created");
+        return;
+      };
+      if (localStorage.getItem("MyUser") !== null){ 
+        var myuserlist_deserialized = JSON.parse(localStorage.getItem("MyUser"));
+        console.log(myuserlist_deserialized);
+        myuserlist_deserialized.push({
+          Email: email,
+          Firstname: firstname,
+          Lastname: lastname,
+          Usertype: usertype,
+          Password: password
+        });
+        var myuserlistserialized = JSON.stringify(myuserlist_deserialized);
+        localStorage.setItem("MyUser", myuserlistserialized);
+        console.log("ADDED IF DOES EXIST");
+
+      };
+    }
+  }
+})
+
+/*var reg = new Vue({
+  el: '#reg',
   data: {
     email: '',
     firstname: '',
     lastname: ''
   },
-  mounted() {
-    if(localStorage.email) this.email = localStorage.email;
-    if(localStorage.firstname) this.firstname = localStorage.firstname;
-    if(localStorage.lastname) this.lastname = localStorage.lastname;
-  },
   methods: {
     persist() {
-      localStorage.email = this.email;
-      localStorage.firstname = this.firstname;
-      localStorage.lastname = this.lastname;
+      var userlist = [];
+      var email = this.email;
+      var firstname = this.firstname;
+      var lastname = this.lastname;
+
+      if (localStorage.getItem("MyUser") === null) {
+        userlist.push({
+          Email: email,
+          Firstname: firstname,
+          Lastname: lastname
+        });
+        var myuserlistserialized = JSON.stringify(userlist);
+        localStorage.setItem("MyUser", myuserlistserialized);
+      }
+      else { 
+        var myuserlist_deserialized = JSON.parse(localStorage.getItem("MyUser"));
+        console.log(myuserlist_deserialized);
+
+      };
+
+
+
     }
   }
-})
+})*/
+
+
+//var email = "sean123";
+//var firstname = "sean";
+//var lastname = "riordan";
+
+
+//var myuser = {
+//Email: email,
+//Firstname: firstname,
+//Lastname: lastname
+//};
+
+/*var userlist = [];
+userlist.push(
+  {
+    Email: email,
+    Firstname: firstname,
+    Lastname: lastname
+  }
+);
+
+userlist.push(
+  {
+    Email: "newdude123",
+    Firstname: "sean",
+    Lastname: "dude"
+  }
+);
+
+console.log(userlist);
+
+var myuserlistserialized = JSON.stringify(userlist);
+
+localStorage.setItem("MyUser", myuserlistserialized);
+console.log(localStorage);*/
+//users.push =  {
+//Email: email,
+//firstname: firstname,
+//lastname: lastname 
+//};
+
+function createusers() {
+
+
+
+
+
+
+
+  var userslist = new Object();
+  userslist.users = users;
+
+
+
+};

@@ -4,14 +4,14 @@
 
 <head>
 
-    <title>Skool App</title>
-    <header>Skool App</header>
-    <ul>
-        <li><button onclick="GoToLessons()">Lessons</button></li>
-        <li><button onclick="GoToLogin()">Login</button></li>
-        <li><button onclick="GoToRegistration()">Registration</button></li>
-    </ul>
-    
+  <title>Skool App</title>
+  <header>Skool App</header>
+  <ul>
+    <li><button onclick="GoToLessons()">Lessons</button></li>
+    <li><button onclick="GoToLogin()">Login</button></li>
+    <li><button onclick="GoToRegistration()">Registration</button></li>
+  </ul>
+
 
 </head>
 
@@ -21,48 +21,61 @@
       {{ item.name }}
     </li>
   </ul>
-    <!---------------------------------------------------------LESSONS PAGE---------------------------------------->
-    <div id="app">
-        <div class="grid-container" v-if="seen">
-            <div class="item1">
-                Search: <input type="search" name="searchbox">
-                <input type="submit">
+  <!---------------------------------------------------------LESSONS PAGE---------------------------------------->
+  <div id="app">
+    <div class="grid-container" v-if="seen">
+      <div class="item1">
+        Search: <input type="search" name="searchbox">
+        <input type="submit">
 
-            </div>
-            <div class="item2">Menu</div>
-            <div class="item3">Main</div>
-        </div>
-        <!--<button @click="seen=!seen">Show</button>-->
-        <!---------------------------------------------------------LOGIN PAGE---------------------------------------->
+      </div>
+      <div class="item2">Menu</div>
+      <div class="item3">Main</div>
     </div>
-    <div id="login">
-        <div class="logincontainer" v-if="seen">
-            <label for="userEmail"><b>Email</b></label>
-            <input type="text" placeholder="Enter Email" name="userEmail" required>
+    <!--<button @click="seen=!seen">Show</button>-->
+    <!---------------------------------------------------------LOGIN PAGE---------------------------------------->
+  </div>
+  <div id="login">
+    <div class="logincontainer" v-if="seen">
+      <label for="userEmail"><b>Email</b></label>
+      <input type="text" placeholder="Enter Email" name="userEmail" required>
 
-            <label for="password"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="password" required>
+      <label for="password"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="password" required>
 
-            <button type="submit">Login</button>
-        </div>
+      <button type="submit">Login</button>
     </div>
-    <!---------------------------------------------------------REGISTRATION PAGE---------------------------------------->
-    
-    <div id="registration"></div>
-    <div id="reg">
+  </div>
+  <!---------------------------------------------------------REGISTRATION PAGE---------------------------------------->
 
-      <label for="email"><b>Email:</b></label>
-      <input v-model="email" required>
-      <br>
-      <label for="firstname"><b>First Name:</b></label>
-      <input v-model="firstname" required>
-      <br>
-      <label for="lastname"><b>Last Name:</b></label>
-      <input v-model="lastname" required>
-      <br>
-      <button @click="persist">Save</button>
-    </div>
-    </div>
+  <div id="registration"></div>
+  <div id="reg">
+
+    <label for="signemail"><b>Email:</b></label>
+    <input v-model="signemail" required>
+    <br>
+    <label for="signfirstname"><b>First Name:</b></label>
+    <input v-model="signfirstname" required>
+    <br>
+    <label for="signlastname"><b>Last Name:</b></label>
+    <input v-model="signlastname" required>
+    <br>
+    <label for="signusertype"><b>Who Are You?:</b></label>
+    <select name="signusertype" v-model="signusertype">
+      <option value="Parent/Student">Parent/Student</option>
+      <option value="Service Provider">Service Provider</option>
+    </select>
+    <br>
+    <label for="signpassword"><b>Password:</b></label>
+    <input v-model="signpassword" required>
+    <br>
+    <button @click="signup">Save</button>
+  </div>
+  </div>
+  <!--<input type="email" id="email">
+    <input type="firstname" id="firstname">
+    <input type="lastname" id="lastname">
+    <button onclick="createusers();">Submit</button>-->
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
