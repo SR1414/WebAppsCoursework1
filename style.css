@@ -1,8 +1,13 @@
+body{
+  font-size: medium;
+}
 
 .item1 { grid-area: header; }
 .item2 { grid-area: menu; }
 .item3 { grid-area: main;
     height: 100vh; }
+div.item4 { grid-area: userinfo;
+}
 
 header{
     background-color: darkgrey;
@@ -31,18 +36,35 @@ body {
   display: grid;
   grid-template-areas:
     'header header header header header header'
-    'menu main main main main main'
-    'menu main main main main main';
+    'menu main main main main userinfo'
+    'menu main main main main userinfo';
   grid-gap: 10px;
   background-color: grey;
   padding: 10px;
   grid-template-columns: repeat(auto-fit, minmax(1fr, 100px));
-  
 }
 
 .grid-container > div {
   background-color: darkgrey;
   text-align: center;
   padding: 20px 0;
-  font-size: 30px;
+  font-size:medium;
+}
+
+.login {
+  grid-area: login;
+}
+
+.signup {
+  grid-area: signup;
+}
+
+.logsigncontainer {
+  display: grid;
+  grid-template-areas:
+    'login signup';
+  grid-gap: 10px;
+  background-color: grey;
+  padding: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(1fr, 100px));
 }

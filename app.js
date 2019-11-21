@@ -1,79 +1,30 @@
-var lessons = new Vue({
-  el: "#app",
-  data: {
-    seen: false,
-    message: 'hello world'
-  }
-})
+var courses = [
+  { 'topic': 'math', 'location': 'hendon', 'price': 100 },
+  { 'topic': 'math', 'location': 'colindale', 'price': 80 },
+  { 'topic': 'math', 'location': 'brent cross', 'price': 90 },
+  { 'topic': 'math', 'location': 'golders green', 'price': 120 },
+  { 'topic': 'english', 'location': 'hendon', 'price': 110 },
+  { 'topic': 'english', 'location': 'colindale', 'price': 90 },
+  { 'topic': 'english', 'location': 'brent cross', 'price': 90 },
+  { 'topic': 'english', 'location': 'golders green', 'price': 130 },
+  { 'topic': 'piano', 'location': 'hendon', 'price': 120 },
+  { 'topic': 'piano', 'location': 'golders green', 'price': 140 }];
 
-function GoToLessons() {
-  lessons.seen = true;
-  login.seen = false;
-  registration.seen = false;
+var courses = new vue({
+  data: 
+  { 'topic': 'math', 'location': 'hendon', 'price': 100 },
+  { 'topic': 'math', 'location': 'colindale', 'price': 80 },
+  { 'topic': 'math', 'location': 'brent cross', 'price': 90 },
+  { 'topic': 'math', 'location': 'golders green', 'price': 120 },
+  { 'topic': 'english', 'location': 'hendon', 'price': 110 },
+  { 'topic': 'english', 'location': 'colindale', 'price': 90 },
+  { 'topic': 'english', 'location': 'brent cross', 'price': 90 },
+  { 'topic': 'english', 'location': 'golders green', 'price': 130 },
+  { 'topic': 'piano', 'location': 'hendon', 'price': 120 },
+  { 'topic': 'piano', 'location': 'golders green', 'price': 140 }
+)
 
-}
-function GoToLogin() {
-  login.seen = true;
-  lessons.seen = false;
-  registration.seen = false;
-
-}
-function GoToRegistration() {
-  registration.seen = true;
-  login.seen = false;
-  lessons.seen = false;
-}
-
-var login = new Vue({
-  el: "#login",
-  data: {
-    seen: false
-  }
-})
-var registration = new Vue({
-  el: "#registration",
-  data: {
-    seen: false,
-    message: "yes"
-  }
-})
-
-var atest = new Vue({
-  el: '#signup-form',
-  data: {
-    name: '',
-    email: '',
-    errors: {
-      name: false,
-      email: false
-    },
-    mounted() {
-      if (localStorage.name) this.name = localStorage.name;
-      if (localStorage.email) this.email = localStorage.email;
-    },
-  },
-  methods: {
-    processForm: function () {
-      console.log({ name: this.name, email: this.email });
-      alert('Processing');
-    },
-    validateEmail: function () {
-      const isValid = window.isValidEmail(this.email);
-      this.errors.email = !isValid;
-    }
-  }
-});
-// helpers ===============================================
-/**
- * Validate emails
- * Not 100% reliable. Just a quick and dirty check.
- */
-function isValidEmail(email) {
-  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(email);
-}
-
-
+////////////////////////////////////SIGNUP////////////////////////////////////////
 var reg = new Vue({
   el: '#reg',
   data: {
@@ -107,7 +58,7 @@ var reg = new Vue({
         alert("Account Created");
         return;
       };
-      if (localStorage.getItem("MyUser") !== null){ 
+      if (localStorage.getItem("MyUser") !== null) {
         var myuserlist_deserialized = JSON.parse(localStorage.getItem("MyUser"));
         console.log(myuserlist_deserialized);
         myuserlist_deserialized.push({
@@ -124,95 +75,58 @@ var reg = new Vue({
       };
     }
   }
-})
-
-/*var reg = new Vue({
-  el: '#reg',
+});
+//////////////////////////login//////////////////////////////
+var loginuser = new Vue({
+  el: '#loginform',
   data: {
-    email: '',
-    firstname: '',
-    lastname: ''
+    logemail: '',
+    logpassword: ''
+
   },
   methods: {
-    persist() {
-      var userlist = [];
-      var email = this.email;
-      var firstname = this.firstname;
-      var lastname = this.lastname;
-
-      if (localStorage.getItem("MyUser") === null) {
-        userlist.push({
-          Email: email,
-          Firstname: firstname,
-          Lastname: lastname
-        });
-        var myuserlistserialized = JSON.stringify(userlist);
-        localStorage.setItem("MyUser", myuserlistserialized);
+    login: function loguserin() {
+      var email = this.logemail;
+      var password = this.logpassword;
+      var i = 0;
+      var userlist = JSON.parse(localStorage.getItem("MyUser"));
+      for (i = 0; i < userlist.length - 1; i++) {
+        if (userlist[i].Email == email && userlist[i].Password == password) {
+          var currentuserJSON = JSON.stringify(userlist[i]);
+          var currentuser = userlist[i];
+          localStorage.setItem("LoggedInUser", currentuserJSON);
+          console.log(currentuser);
+          alert(
+            "log In Successful. Hello " + currentuser.Firstname + "!"
+          )
+        }
+        if (userlist[i].Email !== email || userlist[i].Password !== password)
+          alert("Email/Password is not valid");
       }
-      else { 
-        var myuserlist_deserialized = JSON.parse(localStorage.getItem("MyUser"));
-        console.log(myuserlist_deserialized);
+    }
+  }
+});
 
-      };
-
-
+var userinfo = new Vue({
+  el: '#app',
+  data: {
+    Email: '-',
+    Firstname: '-',
+    Lastname: '-',
+    UserType: '-',
+    Message: "Not Logged In"
+  },
+  methods: {
+    getuserinfo: function userinfo() {
+      if (localStorage.getItem("LoggedInUser") !== null) {
+        var userinfo = JSON.parse(localStorage.getItem("LoggedInUser"));
+        this.Email = userinfo.Email;
+        this.Firstname = userinfo.Firstname;
+        this.Lastname = userinfo.Lastname;
+        this.UserType = userinfo.Usertype;
+        this.Message = "Logged in"
+        }
 
     }
   }
-})*/
-
-
-//var email = "sean123";
-//var firstname = "sean";
-//var lastname = "riordan";
-
-
-//var myuser = {
-//Email: email,
-//Firstname: firstname,
-//Lastname: lastname
-//};
-
-/*var userlist = [];
-userlist.push(
-  {
-    Email: email,
-    Firstname: firstname,
-    Lastname: lastname
-  }
-);
-
-userlist.push(
-  {
-    Email: "newdude123",
-    Firstname: "sean",
-    Lastname: "dude"
-  }
-);
-
-console.log(userlist);
-
-var myuserlistserialized = JSON.stringify(userlist);
-
-localStorage.setItem("MyUser", myuserlistserialized);
-console.log(localStorage);*/
-//users.push =  {
-//Email: email,
-//firstname: firstname,
-//lastname: lastname 
-//};
-
-function createusers() {
-
-
-
-
-
-
-
-  var userslist = new Object();
-  userslist.users = users;
-
-
-
-};
+});
