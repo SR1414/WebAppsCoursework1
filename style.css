@@ -9,6 +9,12 @@ body{
 div.item4 { grid-area: userinfo;
 }
 
+#coursebox {
+  border-style: solid;
+  color: blue;
+
+}
+
 header{
     background-color: darkgrey;
     color: rgb(255, 255, 255);

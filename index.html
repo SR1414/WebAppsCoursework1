@@ -56,13 +56,21 @@
   <!---------------------------------------------------------LESSONS PAGE---------------------------------------->
   <div class="grid-container" id="app">
     <div class="item1">
-      Search: <input type="search" name="searchbox">
-      <input type="submit">
 
     </div>
     <div class="item2">Menu</div>
     <div id="courses" class="item3">Main
-      {{ courses }}
+      <div id="example-2">
+        <br>
+        <label for="search"><b>Search:</b></label>
+        <input v-model="search" placeholder="Enter your First Name:" required>
+        <div id="coursebox" v-for="course in filteredCourses">
+
+          {{ parentMessage }}{{ course.topic }} - Location: {{ course.location}} - Price:£{{ course.price}}
+          <br><br>
+        </div>
+        <br>
+      </div>
     </div>
     <div class="item4"><button @click="getuserinfo">Display User</button>
       <p>

@@ -1,21 +1,75 @@
 
-var displaycourses = new Vue ({
-  el:'#courses',
+var displaycourses = new Vue({
+  el: '#example-2',
   data: {
+    parentMessage: 'Course: ',
+    search: '',
     courses: [
-      { 'topic': 'math', 'location': 'hendon', 'price': 100 },
-      { 'topic': 'math', 'location': 'colindale', 'price': 80 },
-      { 'topic': 'math', 'location': 'brent cross', 'price': 90 },
-      { 'topic': 'math', 'location': 'golders green', 'price': 120 },
-      { 'topic': 'english', 'location': 'hendon', 'price': 110 },
-      { 'topic': 'english', 'location': 'colindale', 'price': 90 },
-      { 'topic': 'english', 'location': 'brent cross', 'price': 90 },
-      { 'topic': 'english', 'location': 'golders green', 'price': 130 },
-      { 'topic': 'piano', 'location': 'hendon', 'price': 120 },
-      { 'topic': 'piano', 'location': 'golders green', 'price': 140 }]
-    
+      {
+        topic: 'math',
+        location: 'hendon',
+        price: 100
+      },
+      {
+        topic: 'math',
+        location: 'colindale', 'price': 80
+      },
+      {
+        topic: 'math',
+        location: 'brent cross', 'price': 90
+      },
+      {
+        topic: 'math',
+        location: 'golders green',
+        price: 120
+      },
+      {
+        topic: 'english',
+        location: 'hendon',
+        price: 110
+      },
+      {
+        topic: 'english',
+        location: 'colindale',
+        price: 90
+      },
+      {
+        topic: 'english',
+        location: 'brent cross',
+        price: 90
+      },
+      {
+        topic: 'english',
+        location: 'golders green',
+        price: 130
+      },
+      {
+        topic: 'piano',
+        location: 'hendon',
+        price: 120
+      },
+      {
+        topic: 'piano',
+        location: 'golders green',
+        price: 140
+      }]
+  },
+  computed: {
+  filteredCourses (){
+    if(this.search){
+    return this.courses.filter((course)=>{
+      return course.topic.startsWith(this.search);
+    })
+    }else{
+      return this.courses;
+    }
   }
+}
+  
 })
+
+
+
 
 ////////////////////////////////////SIGNUP////////////////////////////////////////
 var reg = new Vue({
@@ -83,18 +137,18 @@ var loginuser = new Vue({
       var password = this.logpassword;
       var i = 0;
       var userlist = JSON.parse(localStorage.getItem("MyUser"));
+      var validuser;
       for (i = 0; i < userlist.length - 1; i++) {
         if (userlist[i].Email == email && userlist[i].Password == password) {
           var currentuserJSON = JSON.stringify(userlist[i]);
           var currentuser = userlist[i];
+          var v
           localStorage.setItem("LoggedInUser", currentuserJSON);
           console.log(currentuser);
           alert(
             "log In Successful. Hello " + currentuser.Firstname + "!"
           )
         }
-        if (userlist[i].Email !== email || userlist[i].Password !== password)
-          alert("Email/Password is not valid");
       }
     }
   }
@@ -118,8 +172,15 @@ var userinfo = new Vue({
         this.Lastname = userinfo.Lastname;
         this.UserType = userinfo.Usertype;
         this.Message = "Logged in"
-        }
+      }
 
     }
   }
 });
+
+new Vue({
+  el: '#root',
+  data: {
+    message: 'Hello Vue'
+  }
+})
