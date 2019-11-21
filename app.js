@@ -1,5 +1,70 @@
-
-var displaycourses = new Vue({
+var testvue = new Vue({
+  el: '#root',
+  data: {
+    search: '',
+    courses: [
+      {
+        topic: 'math',
+        location: 'hendon',
+        price: 100
+      },
+      {
+        topic: 'math',
+        location: 'colindale', 'price': 80
+      },
+      {
+        topic: 'math',
+        location: 'brent cross', 'price': 90
+      },
+      {
+        topic: 'math',
+        location: 'golders green',
+        price: 120
+      },
+      {
+        topic: 'english',
+        location: 'hendon',
+        price: 110
+      },
+      {
+        topic: 'english',
+        location: 'colindale',
+        price: 90
+      },
+      {
+        topic: 'english',
+        location: 'brent cross',
+        price: 90
+      },
+      {
+        topic: 'english',
+        location: 'golders green',
+        price: 130
+      },
+      {
+        topic: 'piano',
+        location: 'hendon',
+        price: 120
+      },
+      {
+        topic: 'piano',
+        location: 'golders green',
+        price: 140
+      }]
+  },
+  computed: {
+    filteredCourses (){
+      if(this.search){
+      return this.courses.filter((course)=>{
+        return course.topic.startsWith(this.search);
+      })
+      }else{
+        return this.courses;
+      }
+    }
+  }
+})
+/*var displaycourses = new Vue({
   el: '#example-2',
   data: {
     parentMessage: 'Course: ',
@@ -66,7 +131,7 @@ var displaycourses = new Vue({
   }
 }
   
-})
+})*/
 
 
 
@@ -124,6 +189,8 @@ var reg = new Vue({
   }
 });
 //////////////////////////login//////////////////////////////
+
+
 var loginuser = new Vue({
   el: '#loginform',
   data: {
@@ -178,10 +245,4 @@ var userinfo = new Vue({
   }
 });
 
-new Vue({
-  el: '#root',
-  data: {
-    message: 'Hello Vue'
-  }
-})
 

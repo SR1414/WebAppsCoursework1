@@ -2,7 +2,6 @@ body{
   font-size: medium;
 }
 
-.item1 { grid-area: header; }
 .item2 { grid-area: menu; }
 .item3 { grid-area: main;
     height: 100vh; }
@@ -41,7 +40,7 @@ body {
 .grid-container {
   display: grid;
   grid-template-areas:
-    'header header header header header header'
+    'menu main main main main userinfo'
     'menu main main main main userinfo'
     'menu main main main main userinfo';
   grid-gap: 10px;

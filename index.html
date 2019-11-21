@@ -54,25 +54,19 @@
   </div>
 
   <!---------------------------------------------------------LESSONS PAGE---------------------------------------->
-  <div class="grid-container" id="app">
-    <div class="item1">
-
-    </div>
+  <div class="grid-container">
     <div class="item2">Menu</div>
-    <div id="courses" class="item3">Main
-      <div id="example-2">
-        <br>
-        <label for="search"><b>Search:</b></label>
-        <input v-model="search" placeholder="Enter your First Name:" required>
-        <div id="coursebox" v-for="course in filteredCourses">
+    <div id="root" class="item3">Main
+      <label for="search"><b>Email:</b></label>
+      <input v-model="search" placeholder="Enter your Email:" required>
+      <div id="coursebox" v-for="course in filteredCourses">
 
-          {{ parentMessage }}{{ course.topic }} - Location: {{ course.location}} - Price:£{{ course.price}}
-          <br><br>
-        </div>
-        <br>
+        Course:{{ course.topic }} - Location: {{ course.location}} - Price:£{{ course.price}}
+        <br><br>
       </div>
+
     </div>
-    <div class="item4"><button @click="getuserinfo">Display User</button>
+    <div id="app" class="item4"><button @click="getuserinfo">Display User</button>
       <p>
         {{ Message }}
         <br>
@@ -85,6 +79,7 @@
       </p>
     </div>
   </div>
+
 
 </body>
 
