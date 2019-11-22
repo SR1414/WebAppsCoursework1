@@ -1,16 +1,16 @@
 
 
 var courses = [
-  { topic: 'math', location: 'hendon', price: 100, rating: 5, classID: 1 },
-  { topic: 'math', location: 'colindale', price: 80, rating: 3, classID: 2 },
-  { topic: 'math', location: 'brent cross', price: 90, rating: 4, classID: 3 },
-  { topic: 'math', location: 'golders green', price: 120, rating: 5, classID: 4 },
-  { topic: 'english', location: 'hendon', price: 110, rating: 5, classID: 5 },
-  { topic: 'english', location: 'colindale', price: 90, rating: 4, classID: 6 },
-  { topic: 'english', location: 'brent cross', price: 90, rating: 2, classID: 7 },
-  { topic: 'english', location: 'golders green', price: 130, rating: 5, classID: 8 },
-  { topic: 'sports', location: 'hendon', price: 120, rating: 5, classID: 9 },
-  { topic: 'sports', location: 'golders green', price: 140, rating: 4, classID: 10 }];
+  { topic: 'math', location: 'hendon', price: 100, time: '12:00', length: 2, rating: 5, classID: 1 },
+  { topic: 'math', location: 'colindale', price: 80, time: '13:00', length: 1.5,  rating: 3, classID: 2 },
+  { topic: 'math', location: 'brent cross', price: 90, time: '12:00', length: 1,  rating: 4, classID: 3 },
+  { topic: 'math', location: 'golders green', price: 120, time: '14:00', length: 2,  rating: 5, classID: 4 },
+  { topic: 'english', location: 'hendon', price: 110, time: '15:00', length: 2.5,  rating: 5, classID: 5 },
+  { topic: 'english', location: 'colindale', price: 90, time: '08:00', length: 2,  rating: 4, classID: 6 },
+  { topic: 'english', location: 'brent cross', price: 90, time: '09:00', length: 2,  rating: 2, classID: 7 },
+  { topic: 'english', location: 'golders green', price: 130, time: '10:00', length: 1,  rating: 5, classID: 8 },
+  { topic: 'sports', location: 'hendon', price: 120, time: '14:00', length: 1,  rating: 5, classID: 9 },
+  { topic: 'sports', location: 'golders green', price: 140, time: '16:00', length: 1.5,  rating: 4, classID: 10 }];
 
 var testvue = new Vue({
   el: '#root',
@@ -115,7 +115,7 @@ var reg = new Vue({
       var password = this.signpassword;
       var activity = [];
 
-      if (localStorage.getItem("MyUser") === null) {
+      if (localStorage.getItem("MyUser") == null) {
         userlist.push({
           Email: email,
           Firstname: firstname,
@@ -132,22 +132,17 @@ var reg = new Vue({
         return;
       };
       if (localStorage.getItem("MyUser") !== null) {
-        var myuserlist_deserialized = JSON.parse(localStorage.getItem("MyUser"));
-        console.log(myuserlist_deserialized);
-        myuserlist_deserialized.push({
-          Email: email,
-          Firstname: firstname,
-          Lastname: lastname,
-          Usertype: usertype,
-          Password: password
-        });
-        var myuserlistserialized = JSON.stringify(myuserlist_deserialized);
-        localStorage.setItem("MyUser", myuserlistserialized);
-        console.log("ADDED IF DOES EXIST");
-        this.seen = false;
-        return;
+        var myusers = JSON.parse(localStorage.getItem("MyUser"));
+        var i = 0;
+        for (i = 0; i < myusers.length; i++) {
+          if (myusers[i].Email == this.signemail) {
+            alert("Email Already Registered");
+               return;
+          }
 
-      };
+        }
+
+      }
     }
   }
 });
@@ -170,7 +165,12 @@ var loginuser = new Vue({
       var userlist = JSON.parse(localStorage.getItem("MyUser"));
       var validuser;
       console.log("1");
-      for (i = 0; i < userlist.length; i++) {
+      if (localStorage.getItem("MyUser") == null){
+        alert("Invalid Email/Password");
+          return;
+      }
+      if (localStorage.getItem("MyUser") !== null){
+        for (i = 0; i < userlist.length; i++) {
         console.log("2");
         if (userlist[i].Email == email && userlist[i].Password == password) {
           var currentuserJSON = JSON.stringify(userlist[i]);
@@ -183,7 +183,14 @@ var loginuser = new Vue({
             "log In Successful. Hello " + currentuser.Firstname + "!"
           )
         }
+        if (userlist[i].Email !== email || userlist[i].Password !== password){
+          alert("Invalid Email/Password");
+          return;
+        }
+        
       }
+      }
+      
     }
   }
 });
@@ -191,6 +198,7 @@ var loginuser = new Vue({
 var userinfo = new Vue({
   el: '#app',
   data: {
+    UserInfo: [],
     Email: '-',
     Firstname: '-',
     Lastname: '-',
@@ -206,12 +214,17 @@ var userinfo = new Vue({
     getuserinfo: function userinfo() {
       if (localStorage.getItem("LoggedInUser") !== null) {
         var userinfo = JSON.parse(localStorage.getItem("LoggedInUser"));
+        var loggedUser = [
+          {Email: userinfo.Email, FirstName: userinfo.Firstname, LastName: userinfo.Lastname, UserType: userinfo.Usertype, Message: "Logged in", Activity: userinfo.Activity}
+        ];
+        this.UserInfo = loggedUser;
         this.Email = userinfo.Email;
         this.Firstname = userinfo.Firstname;
         this.Lastname = userinfo.Lastname;
         this.UserType = userinfo.Usertype;
         this.Message = "Logged in"
         this.Activity = userinfo.Activity;
+        this.retrievedActivity = userinfo.Activity;
       }
 
     },
@@ -260,5 +273,6 @@ var userinfo = new Vue({
         }
       }
     }
+
   }
 });
