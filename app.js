@@ -2,15 +2,15 @@
 
 var courses = [
   { topic: 'math', location: 'hendon', price: 100, time: '12:00', length: 2, rating: 5, classID: 1 },
-  { topic: 'math', location: 'colindale', price: 80, time: '13:00', length: 1.5,  rating: 3, classID: 2 },
-  { topic: 'math', location: 'brent cross', price: 90, time: '12:00', length: 1,  rating: 4, classID: 3 },
-  { topic: 'math', location: 'golders green', price: 120, time: '14:00', length: 2,  rating: 5, classID: 4 },
-  { topic: 'english', location: 'hendon', price: 110, time: '15:00', length: 2.5,  rating: 5, classID: 5 },
-  { topic: 'english', location: 'colindale', price: 90, time: '08:00', length: 2,  rating: 4, classID: 6 },
-  { topic: 'english', location: 'brent cross', price: 90, time: '09:00', length: 2,  rating: 2, classID: 7 },
-  { topic: 'english', location: 'golders green', price: 130, time: '10:00', length: 1,  rating: 5, classID: 8 },
-  { topic: 'sports', location: 'hendon', price: 120, time: '14:00', length: 1,  rating: 5, classID: 9 },
-  { topic: 'sports', location: 'golders green', price: 140, time: '16:00', length: 1.5,  rating: 4, classID: 10 }];
+  { topic: 'math', location: 'colindale', price: 80, time: '13:00', length: 1.5, rating: 3, classID: 2 },
+  { topic: 'math', location: 'brent cross', price: 90, time: '12:00', length: 1, rating: 4, classID: 3 },
+  { topic: 'math', location: 'golders green', price: 120, time: '14:00', length: 2, rating: 5, classID: 4 },
+  { topic: 'english', location: 'hendon', price: 110, time: '15:00', length: 2.5, rating: 5, classID: 5 },
+  { topic: 'english', location: 'colindale', price: 90, time: '08:00', length: 2, rating: 4, classID: 6 },
+  { topic: 'english', location: 'brent cross', price: 90, time: '09:00', length: 2, rating: 2, classID: 7 },
+  { topic: 'english', location: 'golders green', price: 130, time: '10:00', length: 1, rating: 5, classID: 8 },
+  { topic: 'sports', location: 'hendon', price: 120, time: '14:00', length: 1, rating: 5, classID: 9 },
+  { topic: 'sports', location: 'golders green', price: 140, time: '16:00', length: 1.5, rating: 4, classID: 10 }];
 
 var testvue = new Vue({
   el: '#root',
@@ -90,9 +90,9 @@ var reg = new Vue({
 
   },
   methods: {
-    validEmail:function(email) {
+    validEmail: function (email) {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
+      return re.test(email);
     },
     signup: function register() {
       var userlist = [];
@@ -102,13 +102,13 @@ var reg = new Vue({
       var usertype = this.signusertype;
       var password = this.signpassword;
       var activity = [];
-      if (!this.signemail || !this.signfirstname || !this.signlastname || !this.signpassword || !this.signusertype){
+      if (!this.signemail || !this.signfirstname || !this.signlastname || !this.signpassword || !this.signusertype) {
         alert("Ensure all fields are filled in with valid information");
         return;
       }
-      if(!this.validEmail(this.signemail)) {
+      if (!this.validEmail(this.signemail)) {
         alert("Invalid Email");
-        return;        
+        return;
       }
       if (localStorage.getItem("MyUser") == null) {
         userlist.push({
@@ -132,7 +132,7 @@ var reg = new Vue({
         for (i = 0; i < myusers.length; i++) {
           if (myusers[i].Email == this.signemail) {
             alert("Email Already Registered");
-               return;
+            return;
           }
 
         }
@@ -153,9 +153,9 @@ var loginuser = new Vue({
 
   },
   methods: {
-    validEmail:function(email) {
+    validEmail: function (email) {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
+      return re.test(email);
     },
     login: function loguserin() {
       var email = this.logemail;
@@ -163,41 +163,41 @@ var loginuser = new Vue({
       var i = 0;
       var userlist = JSON.parse(localStorage.getItem("MyUser"));
       var validuser;
-      if (!this.logemail || !this.logpassword){
+      if (!this.logemail || !this.logpassword) {
         alert("Ensure all fields are filled in with valid information");
         return;
       }
-      if(!this.validEmail(this.logemail)) {
+      if (!this.validEmail(this.logemail)) {
         alert("Invalid Email");
-        return;        
+        return;
       }
-      if (localStorage.getItem("MyUser") == null){
+      if (localStorage.getItem("MyUser") == null) {
         alert("Invalid Email/Password");
-          return;
+        return;
       }
-      if (localStorage.getItem("MyUser") !== null){
+      if (localStorage.getItem("MyUser") !== null) {
         for (i = 0; i < userlist.length; i++) {
-        console.log("2");
-        if (userlist[i].Email == email && userlist[i].Password == password) {
-          var currentuserJSON = JSON.stringify(userlist[i]);
-          var currentuser = userlist[i];
-          localStorage.setItem("LoggedInUser", currentuserJSON);
-          console.log(currentuser);
+          console.log("2");
+          if (userlist[i].Email == email && userlist[i].Password == password) {
+            var currentuserJSON = JSON.stringify(userlist[i]);
+            var currentuser = userlist[i];
+            localStorage.setItem("LoggedInUser", currentuserJSON);
+            console.log(currentuser);
 
-          this.seen = false;
-          alert(
-            "log In Successful. Hello " + currentuser.Firstname + "!"
-          )
-          userinfo.getuserinfo();
+            this.seen = false;
+            alert(
+              "log In Successful. Hello " + currentuser.Firstname + "!"
+            )
+            userinfo.getuserinfo();
+          }
+          if (userlist[i].Email !== email || userlist[i].Password !== password) {
+            alert("Invalid Email/Password");
+            return;
+          }
+
         }
-        if (userlist[i].Email !== email || userlist[i].Password !== password){
-          alert("Invalid Email/Password");
-          return;
-        }
-        
       }
-      }
-      
+
     }
   }
 });
@@ -220,11 +220,11 @@ var userinfo = new Vue({
   methods: {
     getuserinfo: function userinfo() {
       var loggedUser;
-      if (localStorage.getItem("LoggedInUser") == null){
+      if (localStorage.getItem("LoggedInUser") == null) {
         loggedUser = [
-          {Email: "-", FirstName: "-", LastName: "-", UserType: "-", Message: "Not Logged in"}
+          { Email: "-", FirstName: "-", LastName: "-", UserType: "-", Message: "Not Logged in" }
         ];
-        var noactivity = [{ topic: '-', location: '-', price: '-', time: '-', length: '-',  rating: '-', classID: '-' }];
+        var noactivity = [{ topic: '-', location: '-', price: '-', time: '-', length: '-', rating: '-', classID: '-' }];
         this.UserInfo = loggedUser;
         this.Email = "-";
         this.Firstname = "-";
@@ -232,12 +232,12 @@ var userinfo = new Vue({
         this.UserType = "-";
         this.Message = "Not Logged In";
         this.retrievedActivity = noactivity;
-        
+
       }
       if (localStorage.getItem("LoggedInUser") !== null) {
         var userinfo = JSON.parse(localStorage.getItem("LoggedInUser"));
         loggedUser = [
-          {Email: userinfo.Email, FirstName: userinfo.Firstname, LastName: userinfo.Lastname, UserType: userinfo.Usertype, Message: "Logged in", Activity: userinfo.Activity}
+          { Email: userinfo.Email, FirstName: userinfo.Firstname, LastName: userinfo.Lastname, UserType: userinfo.Usertype, Message: "Logged in", Activity: userinfo.Activity }
         ];
         this.UserInfo = loggedUser;
         this.Email = userinfo.Email;
@@ -248,7 +248,7 @@ var userinfo = new Vue({
         this.Activity = userinfo.Activity;
         this.retrievedActivity = userinfo.Activity;
       }
-      
+
 
     },
     loguserout: function logout() {
@@ -283,7 +283,7 @@ var userinfo = new Vue({
           userJSON = JSON.stringify(CurrentLoggedinUser);
           localStorage.setItem("LoggedInUser", userJSON);
           this.retrievedActivity = CurrentLoggedinUser.Activity;
-          
+
 
           var x = 0;
           for (x = 0; x < StoredUsers.length; x++) {
