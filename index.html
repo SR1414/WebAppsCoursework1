@@ -14,7 +14,7 @@
 
   <div class="Logsigncontainer">
     <!---------------------------------------------------------LOGIN PAGE---------------------------------------->
-    <div class="login" id="loginform">
+    <div class="login" id="loginform" v-if="seen">
       <h1>Login</h1>
       <label for="logemail"><b>Email:</b></label>
       <input v-model="logemail" placeholder="Enter your Email:" required>
@@ -26,7 +26,7 @@
     </div>
     <!---------------------------------------------------------REGISTRATION PAGE---------------------------------------->
 
-    <div class="signup" id="reg">
+    <div class="signup" id="reg" v-if="seen">
       <h1>Sign Up</h1>
       <label for="signemail"><b>Email:</b></label>
       <input v-model="signemail" placeholder="Enter your Email:" required>
@@ -55,18 +55,38 @@
 
   <!---------------------------------------------------------LESSONS PAGE---------------------------------------->
   <div class="grid-container">
-    <div class="item2">Menu</div>
-    <div id="root" class="item3">Main
-      <label for="search"><b>Email:</b></label>
-      <input v-model="search" placeholder="Enter your Email:" required>
+
+    <div id="root" class="item3">
+      <h1>Services</h1>
+      <label for="search"><b>Search Topic:</b></label>
+      <input v-model="search" placeholder="Search Topic:" required>
+      <br>
+      <label for="checkbox"><b>Filter by Location:</b></label>
+      <input type="checkbox" id="hendon" value="hendon" v-model="checkedLocation">
+      <label for="hendon">hendon</label>
+      <input type="checkbox" id="colindale" value="colindale" v-model="checkedLocation">
+      <label for="colindale">colindale</label>
+      <input type="checkbox" id="brent cross" value="brent cross" v-model="checkedLocation">
+      <label for="brent cross">brent cross</label>
+      <br>
+      <label for="number"><b>Filter by Rating:</b></label>
+      <input type="number" name="quantity" v-model="filterRating" min="1" max="5">
+      <label for="number"><b>Filter by Price(£):</b></label>
+      <input type="number" name="quantity" v-model="filterPrice" min="0" max="200">
       <div id="coursebox" v-for="course in filteredCourses">
 
-        Course:{{ course.topic }} - Location: {{ course.location}} - Price:£{{ course.price}}
-        <br><br>
+        Course:{{ course.topic }}<br>
+        Location: {{ course.location}}<br>
+        Price:£{{ course.price}}<br>
+        Rating:{{ course.rating }}/5<br>
+        <br>
       </div>
-
+      <br>
+      <br>
+      <br>
     </div>
-    <div id="app" class="item4"><button @click="getuserinfo">Display User</button>
+    <div id="app" class="item4">
+      <button @click="getuserinfo">Display User</button>
       <p>
         {{ Message }}
         <br>
@@ -77,6 +97,7 @@
         User Type: {{ UserType }}
         <br>
       </p>
+      <button @click="loguserout">Display User</button>
     </div>
   </div>
 
@@ -85,3 +106,13 @@
 
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script src="app.js"></script>
+
+<div id="filter">
+  <h1>Filters</h1> <select multiple v-model='selectedTopic'>
+    <option v-for='topic in topics'> {{topic}} </option>
+  </select>
+  <p>Selected topics: {{selectedTopic}}</p> <!-- <br> --> <select multiple v-model='selectedLocation'>
+    <option v-for="location in locations">{{location}}</option>
+  </select>
+  <p>Selected location: {{selectedLocation}}</p>
+</div>

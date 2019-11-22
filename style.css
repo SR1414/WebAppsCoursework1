@@ -2,7 +2,6 @@ body{
   font-size: medium;
 }
 
-.item2 { grid-area: menu; }
 .item3 { grid-area: main;
     height: 100vh; }
 div.item4 { grid-area: userinfo;
@@ -40,9 +39,9 @@ body {
 .grid-container {
   display: grid;
   grid-template-areas:
-    'menu main main main main userinfo'
-    'menu main main main main userinfo'
-    'menu main main main main userinfo';
+    'main main main main main userinfo'
+    'main main main main main userinfo'
+    'main main main main main userinfo';
   grid-gap: 10px;
   background-color: grey;
   padding: 10px;
