@@ -1,86 +1,16 @@
-/*var testvue = new Vue({
-  el: '#root',
-  data: {
-    search: '',
-    checkedLocation: [],
-    filterRating: '',
-    courses: [
-      {
-        topic: 'math',
-        location: 'hendon',
-        price: 100,
-        rating: 5
-      },
-      {
-        topic: 'math',
-        location: 'colindale',
-        price: 80,
-        rating: 3
 
-      },
-      {
-        topic: 'math',
-        location: 'brent cross',
-        price: 90,
-        rating: 4
-      },
-      {
-        topic: 'math',
-        location: 'golders green',
-        price: 120,
-        rating: 5
-      },
-      {
-        topic: 'english',
-        location: 'hendon',
-        price: 110,
-        rating: 5
-      },
-      {
-        topic: 'english',
-        location: 'colindale',
-        price: 90,
-        rating: 4
-      },
-      {
-        topic: 'english',
-        location: 'brent cross',
-        price: 90,
-        rating: 2
-      },
-      {
-        topic: 'english',
-        location: 'golders green',
-        price: 130,
-        rating: 5
-      },
-      {
-        topic: 'sports',
-        location: 'hendon',
-        price: 120,
-        rating: 5
-      },
-      {
-        topic: 'sports',
-        location: 'golders green',
-        price: 140,
-        rating: 4
-      }]
-  },
-  computed: {
-    filteredCourses() {
-      if (this.search) {
-        this.courses.filter((course) => {
-          course.topic.startsWith(this.search);
-        })
-        return this.course;
-      }
-      else {
-        return this.courses;
-      }
-    }
-  }
-})*/
+
+var courses = [
+  { topic: 'math', location: 'hendon', price: 100, rating: 5, classID: 1 },
+  { topic: 'math', location: 'colindale', price: 80, rating: 3, classID: 2 },
+  { topic: 'math', location: 'brent cross', price: 90, rating: 4, classID: 3 },
+  { topic: 'math', location: 'golders green', price: 120, rating: 5, classID: 4 },
+  { topic: 'english', location: 'hendon', price: 110, rating: 5, classID: 5 },
+  { topic: 'english', location: 'colindale', price: 90, rating: 4, classID: 6 },
+  { topic: 'english', location: 'brent cross', price: 90, rating: 2, classID: 7 },
+  { topic: 'english', location: 'golders green', price: 130, rating: 5, classID: 8 },
+  { topic: 'sports', location: 'hendon', price: 120, rating: 5, classID: 9 },
+  { topic: 'sports', location: 'golders green', price: 140, rating: 4, classID: 10 }];
 
 var testvue = new Vue({
   el: '#root',
@@ -89,19 +19,9 @@ var testvue = new Vue({
     checkedLocation: [],
     filterRating: '',
     filterPrice: '',
-    courses: [
-      {topic: 'math', location: 'hendon', price: 100, rating: 5},
-      {topic: 'math', location: 'colindale', price: 80, rating: 3},
-      {topic: 'math', location: 'brent cross', price: 90, rating: 4},
-      {topic: 'math', location: 'golders green', price: 120, rating: 5},
-      {topic: 'english', location: 'hendon', price: 110, rating: 5},
-      {topic: 'english', location: 'colindale', price: 90, rating: 4},
-      {topic: 'english', location: 'brent cross', price: 90, rating: 2},
-      {topic: 'english', location: 'golders green', price: 130, rating: 5},
-      {topic: 'sports', location: 'hendon', price: 120, rating: 5},
-      {topic: 'sports', location: 'golders green', price: 140, rating: 4}]
-  },methods: {
-    reset: function() {
+    courses: courses
+  }, methods: {
+    reset: function () {
       this.search = '';
       this.checkedLocation = [];
       this.filterRating = '';
@@ -109,7 +29,7 @@ var testvue = new Vue({
     }
   },
   computed: {
-    filteredCourses: function() {
+    filteredCourses: function () {
       var topics = this.search;
       var locations = this.checkedLocation;
       var rating = this.filterRating;
@@ -123,7 +43,7 @@ var testvue = new Vue({
           if (course.topic.startsWith(topics)) {
             topicMatch = true;
           };
-           }
+        }
         else {
           topicMatch = true;
         }
@@ -143,7 +63,7 @@ var testvue = new Vue({
         else {
           ratingMatch = true;
         }
-        
+
         if (price.length > 0) {
           if (price >= course.price) {
             priceMatch = true;
@@ -193,6 +113,7 @@ var reg = new Vue({
       var lastname = this.signlastname;
       var usertype = this.signusertype;
       var password = this.signpassword;
+      var activity = [];
 
       if (localStorage.getItem("MyUser") === null) {
         userlist.push({
@@ -200,17 +121,10 @@ var reg = new Vue({
           Firstname: firstname,
           Lastname: lastname,
           Usertype: usertype,
-          Password: password
+          Password: password,
+          Activity: activity
         });
         var myuserlistserialized = JSON.stringify(userlist);
-        /*var i = 0;
-        for (i = 0; i < userlistserialized.length - 1; i++) {
-          if (userlistserialized[i].Email = this.email) {
-            alert("Email is already Registered")
-            console.log("yesy");
-            return;
-          }
-        }*/
         localStorage.setItem("MyUser", myuserlistserialized);
         console.log("ADDED IF DOESNT EXIST");
         this.seen = false;
@@ -255,13 +169,15 @@ var loginuser = new Vue({
       var i = 0;
       var userlist = JSON.parse(localStorage.getItem("MyUser"));
       var validuser;
-      for (i = 0; i < userlist.length - 1; i++) {
+      console.log("1");
+      for (i = 0; i < userlist.length; i++) {
+        console.log("2");
         if (userlist[i].Email == email && userlist[i].Password == password) {
           var currentuserJSON = JSON.stringify(userlist[i]);
           var currentuser = userlist[i];
-          var v
           localStorage.setItem("LoggedInUser", currentuserJSON);
           console.log(currentuser);
+
           this.seen = false;
           alert(
             "log In Successful. Hello " + currentuser.Firstname + "!"
@@ -279,7 +195,12 @@ var userinfo = new Vue({
     Firstname: '-',
     Lastname: '-',
     UserType: '-',
-    Message: "Not Logged In"
+    Message: "Not Logged In",
+    Activity: [],
+    seen: 'false',
+    selectedClassId: '',
+    retrievedActivity: []
+
   },
   methods: {
     getuserinfo: function userinfo() {
@@ -290,6 +211,7 @@ var userinfo = new Vue({
         this.Lastname = userinfo.Lastname;
         this.UserType = userinfo.Usertype;
         this.Message = "Logged in"
+        this.Activity = userinfo.Activity;
       }
 
     },
@@ -302,107 +224,41 @@ var userinfo = new Vue({
         this.UserType = "-";
         this.Message = "Not Logged In";
         loginuser.seen = true;
-
-
+        return;
+      }
+      if (localStorage.getItem("LoggedInUser") == null) {
+        alert("Not Logged In");
+        return;
       }
 
+    },
+    AddClass: function addclass() {
+      var StoredUsers = JSON.parse(localStorage.getItem("MyUser"));
+      var courses = testvue.courses;
+      var CurrentLoggedinUser = JSON.parse(localStorage.getItem("LoggedInUser"));
+      var userJSON = null;
+      var storeduserJSON
+      var i = 0;
+      for (i = 0; i < courses.length; i++) {
+        if (courses[i].classID == this.selectedClassId) {
+          console.log("works");
+          CurrentLoggedinUser.Activity.push(courses[i]);
+          userJSON = JSON.stringify(CurrentLoggedinUser);
+          localStorage.setItem("LoggedInUser", userJSON);
+          this.retrievedActivity = CurrentLoggedinUser.Activity;
+          
+
+          var x = 0;
+          for (x = 0; x < StoredUsers.length; x++) {
+            if (StoredUsers[x].Email == CurrentLoggedinUser.Email) {
+              StoredUsers[x] = CurrentLoggedinUser;
+              storeduserJSON = JSON.stringify(StoredUsers);
+              localStorage.setItem("MyUser", storeduserJSON);
+
+            }
+          }
+        }
+      }
     }
   }
 });
-
-
-var courses = [
-  { 'topic': 'math', 'location': 'hendon', 'price': 100 },
-  { 'topic': 'math', 'location': 'colindale', 'price': 80 },
-  { 'topic': 'math', 'location': 'brent cross', 'price': 90 },
-  { 'topic': 'math', 'location': 'golders green', 'price': 120 },
-  { 'topic': 'english', 'location': 'hendon', 'price': 110 },
-  { 'topic': 'english', 'location': 'colindale', 'price': 90 },
-  { 'topic': 'english', 'location': 'brent cross', 'price': 90 },
-  { 'topic': 'english', 'location': 'golders green', 'price': 130 },
-  { 'topic': 'piano', 'location': 'hendon', 'price': 120 },
-  { 'topic': 'piano', 'location': 'golders green', 'price': 140 }];
-
-var filterApp = new Vue({
-  el: '#filter',
-  data: {
-    courses: courses,
-    selectedTopic: [],
-    selectedLocation: [],
-  },
-  methods: {
-    reset: function () {
-      this.selectedTopic = [];
-      this.selectedLocation = [];
-    }
-  }, computed: {
-    filteredCourses: function () {
-      var topics = this.selectedTopic, locations = this.selectedLocation;
-      return this.courses.filter(function (course) {
-        var topicMatch = false, locationMatch = false;
-        if (topics.length > 0) {
-          if (topics.includes(course.topic)) {
-            topicMatch = true;
-          }
-        }
-        else {
-          topicMatch = true;
-        } if (locations.length > 0) {
-          if (locations.includes(course.location)) {
-            locationMatch = true;
-          }
-        }
-        else {
-          locationMatch = true;
-        }
-        return topicMatch && locationMatch
-      })
-    }
-  }
-
-})
-
-var topicMatch = false, locationMatch = false;
-
-
-var filterApp = new Vue({
-el: '#filter',
-data: {
-  courses: courses,
-  selectedTopic:[],
-  selectedLocation: [],
-},methods: {
-  reset: function() {
-    this.selectedTopic = [];
-    this.selectedLocation = [];
-  }
-},
-computed: {
-  filteredCourses: function() {
-    var topics = this.selectedTopic,
-      locations = this.selectedLocation;
-    return this.courses.filter(function (course) {
-      var topicMatch = false,
-        locationMatch = false;
-      if (topics.length > 0) {
-        if (topics.includes(course.topic)) {
-          topicMatch = true;
-        }
-      }
-      else {
-        topicMatch = true;
-      }
-      if (locations.length > 0) {
-        if (locations.includes(course.location)) {
-          locationMatch = true;
-        }
-      }
-      else {
-        locationMatch = true;
-      }
-      return topicMatch && locationMatch
-    })
-  }
-}
-
-})

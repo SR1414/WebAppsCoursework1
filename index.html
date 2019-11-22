@@ -76,6 +76,7 @@
       <div id="coursebox" v-for="course in filteredCourses">
 
         Course:{{ course.topic }}<br>
+        ID:{{ course.classID }}<br>
         Location: {{ course.location}}<br>
         Price:£{{ course.price}}<br>
         Rating:{{ course.rating }}/5<br>
@@ -86,18 +87,26 @@
       <br>
     </div>
     <div id="app" class="item4">
-      <button @click="getuserinfo">Display User</button>
-      <p>
-        {{ Message }}
-        <br>
-        Name: {{Firstname}} {{ Lastname }}
-        <br>
-        Email: {{ Email }}
-        <br>
-        User Type: {{ UserType }}
-        <br>
-      </p>
-      <button @click="loguserout">Display User</button>
+        <h1>Account:</h1>
+        <button @click="getuserinfo">Update</button>
+        <p>
+          {{ Message }}
+          <br>
+          Name: {{Firstname}} {{ Lastname }}
+          <br>
+          Email: {{ Email }}
+          <br>
+          User Type: {{ UserType }}
+          <br>
+          <div>
+          Selected Classes: {{ retrievedActivity }}</div>
+          <br>
+        </p>
+        <label for="SelectedClass"><b>Enter ID of chosen activity:</b></label>
+        <input type="number" name="SelectedClass" v-model="selectedClassId" min="1" max="10">
+        <button @click="AddClass">Add Activity</button>
+
+        <button @click="loguserout">Logout</button>
     </div>
   </div>
 
