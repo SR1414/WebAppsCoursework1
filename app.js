@@ -188,6 +188,7 @@ var loginuser = new Vue({
           alert(
             "log In Successful. Hello " + currentuser.Firstname + "!"
           )
+          userinfo.getuserinfo();
         }
         if (userlist[i].Email !== email || userlist[i].Password !== password){
           alert("Invalid Email/Password");
@@ -218,9 +219,24 @@ var userinfo = new Vue({
   },
   methods: {
     getuserinfo: function userinfo() {
+      var loggedUser;
+      if (localStorage.getItem("LoggedInUser") == null){
+        loggedUser = [
+          {Email: "-", FirstName: "-", LastName: "-", UserType: "-", Message: "Not Logged in"}
+        ];
+        var noactivity = [{ topic: '-', location: '-', price: '-', time: '-', length: '-',  rating: '-', classID: '-' }];
+        this.UserInfo = loggedUser;
+        this.Email = "-";
+        this.Firstname = "-";
+        this.Lastname = "-";
+        this.UserType = "-";
+        this.Message = "Not Logged In";
+        this.retrievedActivity = noactivity;
+        
+      }
       if (localStorage.getItem("LoggedInUser") !== null) {
         var userinfo = JSON.parse(localStorage.getItem("LoggedInUser"));
-        var loggedUser = [
+        loggedUser = [
           {Email: userinfo.Email, FirstName: userinfo.Firstname, LastName: userinfo.Lastname, UserType: userinfo.Usertype, Message: "Logged in", Activity: userinfo.Activity}
         ];
         this.UserInfo = loggedUser;
@@ -232,6 +248,7 @@ var userinfo = new Vue({
         this.Activity = userinfo.Activity;
         this.retrievedActivity = userinfo.Activity;
       }
+      
 
     },
     loguserout: function logout() {
@@ -243,6 +260,7 @@ var userinfo = new Vue({
         this.UserType = "-";
         this.Message = "Not Logged In";
         loginuser.seen = true;
+        this.getuserinfo();
         return;
       }
       if (localStorage.getItem("LoggedInUser") == null) {
