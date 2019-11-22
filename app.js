@@ -77,22 +77,6 @@ var testvue = new Vue({
     }
   }
 })
-
-
-
-function getByKeyword(courses, search) {
-  var searchQ = search.trim()
-  if (!searchQ.length) return list
-  return list.filter(item => item.name.indexOf(searchQ) > -1)
-}
-
-function getByCategory(list, category) {
-  if (!category) return list
-  return list.filter(item => item.category === category)
-}
-
-
-
 ////////////////////////////////////SIGNUP////////////////////////////////////////
 var reg = new Vue({
   el: '#reg',
@@ -102,10 +86,14 @@ var reg = new Vue({
     signlastname: '',
     signusertype: '',
     signpassword: '',
-    seen: true
+    seen: true,
 
   },
   methods: {
+    validEmail:function(email) {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+    },
     signup: function register() {
       var userlist = [];
       var email = this.signemail;
@@ -114,7 +102,14 @@ var reg = new Vue({
       var usertype = this.signusertype;
       var password = this.signpassword;
       var activity = [];
-
+      if (!this.signemail || !this.signfirstname || !this.signlastname || !this.signpassword || !this.signusertype){
+        alert("Ensure all fields are filled in with valid information");
+        return;
+      }
+      if(!this.validEmail(this.signemail)) {
+        alert("Invalid Email");
+        return;        
+      }
       if (localStorage.getItem("MyUser") == null) {
         userlist.push({
           Email: email,
@@ -158,13 +153,24 @@ var loginuser = new Vue({
 
   },
   methods: {
+    validEmail:function(email) {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+    },
     login: function loguserin() {
       var email = this.logemail;
       var password = this.logpassword;
       var i = 0;
       var userlist = JSON.parse(localStorage.getItem("MyUser"));
       var validuser;
-      console.log("1");
+      if (!this.logemail || !this.logpassword){
+        alert("Ensure all fields are filled in with valid information");
+        return;
+      }
+      if(!this.validEmail(this.logemail)) {
+        alert("Invalid Email");
+        return;        
+      }
       if (localStorage.getItem("MyUser") == null){
         alert("Invalid Email/Password");
           return;
